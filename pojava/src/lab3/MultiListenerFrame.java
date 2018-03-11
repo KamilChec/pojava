@@ -3,43 +3,49 @@ package lab3;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.HeadlessException;
-
+import java.awt.event.ItemEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
+import javax.swing.JPanel;
 
 public class MultiListenerFrame extends JFrame {
 	
-	JSpinner spinner;
+	JPanel panel;
 	JLabel etykieta;
+	JCheckBox przycisk1;
+	JCheckBox przycisk2;
+	JCheckBox przycisk3;
 	
 	public MultiListenerFrame() throws HeadlessException {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setSize(600,500);
-		this.setLayout(new FlowLayout());
 		
-	    SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 4, 1); // (WarPocz, min, max, krok)
-		spinner = new JSpinner(spinnerModel);
-		//spiner.setName("kolorowy spinner");
-		//JOptionPane.showMessageDialog(null, spinner);
+		panel = new JPanel();
+		panel.setLayout(new FlowLayout());
+		add(BorderLayout.NORTH, panel);
 		
-		//spinner.setBounds(100,100,50,30);
-		etykieta = new JLabel();
-        etykieta.setHorizontalAlignment(JLabel.CENTER);    
-        etykieta.setSize(250,100); 
-
-		this.add(spinner,BorderLayout.PAGE_END);  
-		spinner.addChangeListener(this);
+		przycisk1  = new JCheckBox("Ala");
+		przycisk2  = new JCheckBox("ma");
+		przycisk3  = new JCheckBox("kota");
+		panel.add(przycisk1);
+		panel.add(przycisk2);
+		panel.add(przycisk3);
+		
+		przycisk1.addItemListener(this);
 	}
-	
-		public void stateChanged(ChangeEvent arg0) {
-			etykieta.setText("Value : " + ((JSpinner)arg0.getSource()).getValue());  
+	public void itemStateChanged(ItemEvent e) {
+		Object source = e.getItemSelectable();
+		if(source == przycisk1) {
+			etykieta.setText("Ala");
+		} else if (source == przycisk2) {
+			etykieta.setText("ma");
+		} else if(source == przycisk2) {
+			etykieta.setText("kota");
 		}
 		
+	}
 	public static void main(String[] args) {
 		MultiListenerFrame frame = new MultiListenerFrame();
 		frame.setVisible(true);
