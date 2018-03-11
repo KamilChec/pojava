@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
-import java.awt.event.ActionListener;
+
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,7 +33,9 @@ public class MultiListenerFrame extends JFrame {
 		panel.add(przycisk2);
 		panel.add(przycisk3);
 		
-		przycisk1.addItemListener(this);
+		//przycisk1.addActionListener(this);
+
+
 	}
 	public void itemStateChanged(ItemEvent e) {
 		Object source = e.getItemSelectable();
@@ -46,6 +48,7 @@ public class MultiListenerFrame extends JFrame {
 		}
 		
 	}
+
 	public static void main(String[] args) {
 		MultiListenerFrame frame = new MultiListenerFrame();
 		frame.setVisible(true);
