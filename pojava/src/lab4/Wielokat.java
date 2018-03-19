@@ -48,9 +48,9 @@ public class Wielokat extends JFrame {
 	int vertices = 3;
 	JLabel test;
 	List<JTextField[]> fields;
-	List<Integer> xPoly, yPoly;
-	Polygon poly;
-	
+	int[] xDraw;
+	int[] yDraw;
+
 	
 	public Wielokat() throws HeadlessException {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -114,10 +114,10 @@ public class Wielokat extends JFrame {
         for (int i = 0; i < vertices; i++) {
             JTextField[] pairs = new JTextField[2];
             pairs[0] = new JTextField(3);
-            int x = (int) (20*Math.cos((Math.PI/2+2*Math.PI*(i+1))/vertices));
+            int x = (int) (20*Math.cos((Math.PI/2+2*Math.PI*(i+1))/vertices)+150);
             pairs[0].setText(Integer.toString(x));
             pairs[1] = new JTextField(3);
-            int y = (int) (20*Math.sin((Math.PI/2+2*Math.PI*(i+1))/vertices));
+            int y = (int) (20*Math.sin((Math.PI/2+2*Math.PI*(i+1))/vertices)+150);
             pairs[1].setText(Integer.toString(y));
 
             for (JTextField field : pairs) {
@@ -126,32 +126,8 @@ public class Wielokat extends JFrame {
 
             fields.add(pairs);
         }
-		//JScrollPane scroll = new JScrollPane(right);
-		//scroll.setPreferredSize(null);
-		//right.add(scroll);
-		//scroll.setPreferredSize( new Dimension(300,100));
-		//this.add(new JScrollPane(right));
-		//right.add(new JScrollPane());
-		     						
-        //int xPoly[] = {150, 250, 325, 375, 450, 275, 200};				
-       // int yPoly[] = {150, 100, 125, 225, 250, 375, 300};
-        xPoly = new ArrayList<Integer>();								//srodkowy panel
-        yPoly = new ArrayList<Integer>();
-        poly = new Polygon(xPoly, yPoly, vertices);				
-        center = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.setColor(Color.BLUE);
-                g.drawPolygon(poly);
-            }
 
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(800, 600);
-            }
-        };
-        this.add(center, BorderLayout.CENTER);
+       // this.add(center, BorderLayout.CENTER);
        
 		
 	}
@@ -159,6 +135,9 @@ public class Wielokat extends JFrame {
 	class SpinerListener implements ChangeListener {
 		public void stateChanged(ChangeEvent arg0) {
 	        vertices = slider.getValue();
+	        xDraw = new int[vertices];
+	        yDraw = new int[vertices];
+	        Polygon p = new Polygon();
 
 	        if (vertices < fields.size()) {
 	            List<JTextField[]> oldFields = fields.subList(vertices , fields.size());
@@ -174,14 +153,14 @@ public class Wielokat extends JFrame {
 	            for (int i = 0; i < count; i++) {
 	                JTextField[] pairs = new JTextField[2];
 	                pairs[0] = new JTextField(3);
-	                int x = (int) (20*Math.cos((Math.PI/2+2*Math.PI*(count+1))/vertices));
-	                xPoly.add(x);
+	                int x = (int) (20*Math.cos((Math.PI/2+2*Math.PI*(count+1))/vertices)+150);
+	                xDraw[i] = x;
 	                pairs[0].setText(Integer.toString(x));
 	                pairs[1] = new JTextField(3);
-	                int y = (int) (20*Math.sin((Math.PI/2+2*Math.PI*(count+1))/vertices));
-	                yPoly.add(y);
+	                int y = (int) (20*Math.sin((Math.PI/2+2*Math.PI*(count+1))/vertices)+150);
+	                yDraw[i] = y;
 	                pairs[1].setText(Integer.toString(y));
-
+	                p.addPoint(x,y);
 	                for (JTextField field : pairs) {
 	                    right.add(field);
 	                }
