@@ -2,20 +2,17 @@ package lab4;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
-import java.awt.Polygon;
 import java.awt.event.ActionEvent;
-
-import javax.swing.JScrollPane;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -23,22 +20,17 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JSlider;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Wielokat extends JFrame {
+public class Wielokat extends JFrame implements ActionListener{
 
 	JPanel up, down, left, right, center;
 	JButton CButton1, CButton2, drawButton;
@@ -46,10 +38,11 @@ public class Wielokat extends JFrame {
 	JMenuBar menuBar;
 	JSlider slider;
 	int vertices = 3;
+	int lineWidth;
 	JLabel test;
-	List<JTextField[]> fields;
-	int[] xDraw;
-	int[] yDraw;
+	Color bgColor, lineColor;
+	List<JTextField[]> fields ;
+
 
 	
 	public Wielokat() throws HeadlessException {
@@ -59,14 +52,19 @@ public class Wielokat extends JFrame {
 		this.add(down = new JPanel(), BorderLayout.PAGE_END);
 		this.add(left = new JPanel(), BorderLayout.WEST);
 		this.add(right = new JPanel(), BorderLayout.EAST);
-		//this.add(center = new JPanel(), BorderLayout.CENTER);
 		this.setJMenuBar(menuBar = new JMenuBar());
 		
-		JMenu menu = new JMenu("Line width");							//menu
+		JMenu menu = new JMenu("Line width");							           //menu
 		menuBar.add(menu);
 		JMenuItem menuItem1 = new JMenuItem("1 pxl");
+		menuItem1.setActionCommand("1");
+		menuItem1.addActionListener(this);
 		JMenuItem menuItem2 = new JMenuItem("5 pxl");
+		menuItem2.setActionCommand("5");
+		menuItem2.addActionListener(this);
 		JMenuItem menuItem3 = new JMenuItem("10 pxl");
+		menuItem3.setActionCommand("10");
+		menuItem3.addActionListener(this);
 		JMenuItem exit = new JMenuItem("Zakończ");
 		exit.addActionListener(new ActionListener(){
 			@Override
@@ -78,7 +76,7 @@ public class Wielokat extends JFrame {
 		menu.add(menuItem3);
 		menu.add(exit);
 		
-		up.setLayout(new FlowLayout()); 									//gorny panel
+		up.setLayout(new FlowLayout()); 									               //gorny panel
 		JLabel upLabel = new JLabel("No. of verticles");
 		up.add(upLabel);
 		slider = new JSlider(3,33,3);
@@ -93,13 +91,35 @@ public class Wielokat extends JFrame {
 		up.add(test);
 		drawButton = new JButton("Draw");
 		up.add(drawButton);
-		
-		
-		down.setLayout(new FlowLayout());                               //dolny panel
+		drawButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            		Wielokat.super.remove(center);
+        			center = new PolygonDrawer(fields, regular, bgColor, lineWidth, lineColor);			   
+        			Wielokat.this.add(BorderLayout.CENTER, center);
+        			Wielokat.this.setVisible(true);
+            }
+        }); 
+
+		down.setLayout(new FlowLayout());                                                //dolny panel
 		down.add(CButton1 = new JButton("BG color"));
+		CButton1.addActionListener(new ActionListener() {
+			@Override
+            public void actionPerformed(ActionEvent e) {
+				bgColor = JColorChooser.showDialog(null,"Choose a color", bgColor);
+				center.setBackground(bgColor);
+            }
+		});
 		down.add(CButton2 = new JButton("LN color"));
+		CButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lineColor = JColorChooser.showDialog(null, "Line color",lineColor);
+
+            }
+        });
 		
-		left.setLayout(new BoxLayout(left, BoxLayout.PAGE_AXIS));       //lewy panel
+		left.setLayout(new BoxLayout(left, BoxLayout.PAGE_AXIS));                      //lewy panel
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		left.setBorder(blackline);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Polygon");
@@ -108,37 +128,43 @@ public class Wielokat extends JFrame {
 		left.add(regular = new JRadioButton("regular"));
 		left.add(Box.createRigidArea(new Dimension(0,100)));
 		left.add(random = new JRadioButton("random"));
+        ButtonGroup group = new ButtonGroup();
+        regular.setSelected(true);
+        group.add(regular);
+        group.add(random);
 		
-		right.setLayout(new GridLayout(0, 2));							//prawy panel
-		fields = new ArrayList<>(3);
+		right.setLayout(new GridLayout(0, 2));							             //prawy panel
+		fields = new ArrayList<JTextField[]>(3);
+		TitledBorder rightTitle = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Positions");
+		right.setBorder(rightTitle);
+		right.add(new JLabel("    X"));
+		right.add(new JLabel("    Y"));
+
+		center = new PolygonDrawer(fields, regular, bgColor, lineWidth, lineColor);	    //panel centralny
+		this.add(BorderLayout.CENTER, center);
+		System.out.println(fields.size());
         for (int i = 0; i < vertices; i++) {
             JTextField[] pairs = new JTextField[2];
             pairs[0] = new JTextField(3);
-            int x = (int) (20*Math.cos((Math.PI/2+2*Math.PI*(i+1))/vertices)+150);
-            pairs[0].setText(Integer.toString(x));
             pairs[1] = new JTextField(3);
-            int y = (int) (20*Math.sin((Math.PI/2+2*Math.PI*(i+1))/vertices)+150);
-            pairs[1].setText(Integer.toString(y));
-
             for (JTextField field : pairs) {
                 right.add(field);
             }
 
             fields.add(pairs);
-        }
-
-       // this.add(center, BorderLayout.CENTER);
-       
-		
+        } 
 	}
+	
+    public void actionPerformed(ActionEvent e) {
+    		lineWidth = Integer.parseInt(e.getActionCommand());
+    }
+	
+	
+
 	
 	class SpinerListener implements ChangeListener {
 		public void stateChanged(ChangeEvent arg0) {
 	        vertices = slider.getValue();
-	        xDraw = new int[vertices];
-	        yDraw = new int[vertices];
-	        Polygon p = new Polygon();
-
 	        if (vertices < fields.size()) {
 	            List<JTextField[]> oldFields = fields.subList(vertices , fields.size());
 	            for (JTextField[] pairs : oldFields) {
@@ -153,29 +179,25 @@ public class Wielokat extends JFrame {
 	            for (int i = 0; i < count; i++) {
 	                JTextField[] pairs = new JTextField[2];
 	                pairs[0] = new JTextField(3);
-	                int x = (int) (20*Math.cos((Math.PI/2+2*Math.PI*(count+1))/vertices)+150);
-	                xDraw[i] = x;
-	                pairs[0].setText(Integer.toString(x));
 	                pairs[1] = new JTextField(3);
-	                int y = (int) (20*Math.sin((Math.PI/2+2*Math.PI*(count+1))/vertices)+150);
-	                yDraw[i] = y;
-	                pairs[1].setText(Integer.toString(y));
-	                p.addPoint(x,y);
 	                for (JTextField field : pairs) {
 	                    right.add(field);
 	                }
 
-	                fields.add(pairs);
+	                fields.add(pairs);	           
 	            }
 	            right.revalidate();
 	        }
+    		center = new PolygonDrawer(fields, regular, bgColor, lineWidth, lineColor);
+    		Wielokat.this.add(BorderLayout.CENTER, center);
 		}
-	}
+	}  
+	
+
+
 	
 	public static void main(String[] args) {
 		Wielokat wielokat = new Wielokat();
-		wielokat.setVisible(true);
-
+	    wielokat.setVisible(true);
 	}
-
 }
