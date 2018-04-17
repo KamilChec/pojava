@@ -1,5 +1,6 @@
 package lab8;
 
+import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
@@ -23,12 +25,14 @@ public class GrammarExamine extends JFrame {
 	JMenuBar menuBar;
 	JPanel textPanel;
 	JTextPane textField;
-	File from, to;
-	String nameIn, nameOut, line;
-	BufferedReader bfr;
 	JFileChooser chooser;
+	File from, to;
+	BufferedReader bfr;
 	BufferedReader in = null;
 	int nLines;
+	FileWorker worker;
+    Font textFont;
+    Font baseFont;
 	
 	public GrammarExamine() throws HeadlessException{
 		super("Check your grammar");
@@ -44,78 +48,94 @@ public class GrammarExamine extends JFrame {
 		menuItem1.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) { 
-
-
-				FileWriter fw = null;
-
+				chooser = new JFileChooser();
+				int result = chooser.showSaveDialog(null);
+				if (result == JFileChooser.APPROVE_OPTION) {}
 				try {
-					fw = new FileWriter("plik.txt");
-					BufferedWriter bw = new BufferedWriter(fw);
-
-					for (int i = 0; i < 1; i++) {
-						bw.write(textField.getText());
-						bw.newLine();
-					}
-
-					bw.close();
-					//fw.close(); - wystarczy zamknąć zewnętrzny
+					FileWriter fileWriter = new FileWriter(chooser.getSelectedFile().toString());
+					BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter.write(textField.getText());
+					bufferedWriter.close();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-			}
+			} 
 		});
 		JMenuItem menuItem2 = new JMenuItem("Import file");
 		menuItem2.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.setText("");
-				loadFile(textField);
+				worker = new FileWorker(textField);
+				chooser = new JFileChooser();
+				chooser.setDialogTitle("Load File");
+				int result = chooser.showOpenDialog(null);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					from = chooser.getSelectedFile();
+					worker.loadFile(from);
+				} else {
+					return;
+				}
 			}
 			
 		});
-		
+		JMenuItem menuItem3 = new JMenuItem("Check grammar");
+		menuItem3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				worker = new FileWorker(textField);
+				worker.compare(from);
+				
+				
+			}
+			
+		});
 		fileMenu.add(menuItem1);
 		fileMenu.add(menuItem2);
+		fileMenu.add(menuItem3);
+		
+		JMenu textMenu = new JMenu("Text");
+		menuBar.add(textMenu);
+		JMenuItem menuItem4 = new JMenuItem("italics");
+		menuItem4.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                if (textFont.isItalic()) {
+                    textFont = new Font(baseFont.getFontName(), Font.PLAIN, baseFont.getSize());
+                }
+                else{
+                    textFont = new Font(baseFont.getFontName(), Font.ITALIC, baseFont.getSize());
+                }
+                textField.setFont(textFont);
+            }	
+		});
+		JMenuItem menuItem5 = new JMenuItem("bold");
+		menuItem5.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                if(textFont.isBold()) {
+                    textFont = new Font(baseFont.getFontName(), Font.PLAIN, baseFont.getSize());
+                }
+                else {
+                    textFont = new Font(baseFont.getFontName(), Font.BOLD, baseFont.getSize());
+                }
+                textField.setFont(textFont);
+			}
+			
+		});
+		textMenu.add(menuItem4);
+		textMenu.add(menuItem5);
 		
 		// center
 		textField = new JTextPane();
+        textFont = textField.getFont();
+        baseFont = textFont;
 		this.add(textField);
 	}
 	
-	public void loadFile(JTextPane textField)  {
-		 chooser = new JFileChooser();
-		 FileReader fr = null;
-		 bfr = null;
-			
-		 chooser.setDialogTitle("Load File");
-	     int result = chooser.showOpenDialog(null);
-	     try {
-	        if (result == JFileChooser.APPROVE_OPTION) {
-		        from = chooser.getSelectedFile();
-		        nameIn = from.getAbsolutePath();
-		        fr = new FileReader(from);
-		        bfr = new BufferedReader(fr);
-	        } 
-	        int sign;
-	        
-	        while ((sign = bfr.read()) != -1) {
-		        	int c = (char)sign;
-			    	if(c == 'ę'||c == 'ó' || c == 'ą'||c == 'ś'||c == 'ł' ||c == 'ż' ||c == 'ć' ||c == 'ń') {
-			    		textField.setText(textField.getText()+'?');
-			    	}
-			    	else {
-			    		textField.setText(textField.getText() + (char)c);
-			    	}
-
-	        }
-	        fr.close();
-	     } catch (Exception e) {
-			System.out.println("BLAD IO!");
-			System.exit(1);
-	     }
-		
-	} 
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
