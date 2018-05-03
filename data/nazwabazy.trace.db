@@ -1,0 +1,173 @@
+2018-04-24 23:34:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+SELECT data FROM waluty where usd > eur [42102-197]
+2018-04-24 23:34:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+SELECT data FROM waluty where usd > eur [42102-197]
+2018-04-24 23:35:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+SELECT data FROM waluty where usd > eur [42102-197]
+2018-04-24 23:37:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+SELECT * FROM waluty [42102-197]
+2018-04-24 23:41:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+SELECT * FROM waluty [42102-197]
+2018-04-25 00:38:16 database: flush
+org.h2.message.DbException: Błąd ogólny: "java.lang.IllegalStateException: The file is locked: nio:/Users/skamander/git/pojava/data/nazwabazy.mv.db [1.4.197/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/skamander/git/pojava/data/nazwabazy.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:307)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:95)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2506)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:383)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:364)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2934)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:155)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:100)
+	at org.h2.engine.Database.getPageStore(Database.java:2538)
+	at org.h2.engine.Database.open(Database.java:709)
+	at org.h2.engine.Database.openDatabase(Database.java:286)
+	at org.h2.engine.Database.<init>(Database.java:280)
+	at org.h2.engine.Engine.openSession(Engine.java:66)
+	at org.h2.engine.Engine.openSession(Engine.java:179)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:157)
+	at org.h2.engine.Engine.createSession(Engine.java:140)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:351)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:103)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:28)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.h2.jdbc.JdbcSQLException: Błąd ogólny: "java.lang.IllegalStateException: The file is locked: nio:/Users/skamander/git/pojava/data/nazwabazy.mv.db [1.4.197/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/skamander/git/pojava/data/nazwabazy.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 32 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/skamander/git/pojava/data/nazwabazy.mv.db [1.4.197/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:870)
+	at org.h2.mvstore.FileStore.open(FileStore.java:173)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:350)
+	... 26 more
+2018-04-25 00:47:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Baza danych jest już zamknięta (aby zablokować samoczynne zamykanie podczas zamknięcia VM dodaj ";DB_CLOSE_ON_EXIT=FALSE" do URL bazy danych)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1201)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1175)
+	at org.h2.jdbc.JdbcResultSet.checkClosed(JdbcResultSet.java:3205)
+	at org.h2.jdbc.JdbcResultSetMetaData.checkClosed(JdbcResultSetMetaData.java:437)
+	at org.h2.jdbc.JdbcResultSetMetaData.getColumnCount(JdbcResultSetMetaData.java:49)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:48)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-04-25 01:10:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Baza danych jest już zamknięta (aby zablokować samoczynne zamykanie podczas zamknięcia VM dodaj ";DB_CLOSE_ON_EXIT=FALSE" do URL bazy danych)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1201)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1175)
+	at org.h2.jdbc.JdbcResultSet.checkClosed(JdbcResultSet.java:3205)
+	at org.h2.jdbc.JdbcResultSetMetaData.checkClosed(JdbcResultSetMetaData.java:437)
+	at org.h2.jdbc.JdbcResultSetMetaData.getColumnCount(JdbcResultSetMetaData.java:49)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:46)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-04-25 01:36:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Baza danych jest już zamknięta (aby zablokować samoczynne zamykanie podczas zamknięcia VM dodaj ";DB_CLOSE_ON_EXIT=FALSE" do URL bazy danych)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1201)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1175)
+	at org.h2.jdbc.JdbcResultSet.checkClosed(JdbcResultSet.java:3205)
+	at org.h2.jdbc.JdbcResultSetMetaData.checkClosed(JdbcResultSetMetaData.java:437)
+	at org.h2.jdbc.JdbcResultSetMetaData.getColumnCount(JdbcResultSetMetaData.java:49)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:46)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-04-25 01:36:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Baza danych jest już zamknięta (aby zablokować samoczynne zamykanie podczas zamknięcia VM dodaj ";DB_CLOSE_ON_EXIT=FALSE" do URL bazy danych)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1201)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1175)
+	at org.h2.jdbc.JdbcResultSet.checkClosed(JdbcResultSet.java:3205)
+	at org.h2.jdbc.JdbcResultSetMetaData.checkClosed(JdbcResultSetMetaData.java:437)
+	at org.h2.jdbc.JdbcResultSetMetaData.getColumnCount(JdbcResultSetMetaData.java:49)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:46)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-04-25 09:15:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Błąd składniowy w wyrażeniu SQL "SELECT* FORM[*] WALUTY "
+Syntax error in SQL statement "SELECT* FORM[*] WALUTY "; SQL statement:
+SELECT* FORM waluty [42000-197]
+2018-04-25 09:58:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Baza danych jest już zamknięta (aby zablokować samoczynne zamykanie podczas zamknięcia VM dodaj ";DB_CLOSE_ON_EXIT=FALSE" do URL bazy danych)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1201)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1175)
+	at org.h2.jdbc.JdbcResultSet.checkClosed(JdbcResultSet.java:3205)
+	at org.h2.jdbc.JdbcResultSetMetaData.checkClosed(JdbcResultSetMetaData.java:437)
+	at org.h2.jdbc.JdbcResultSetMetaData.getColumnCount(JdbcResultSetMetaData.java:49)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:45)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)

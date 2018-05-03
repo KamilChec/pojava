@@ -15,7 +15,6 @@ public class DatabaseWorker {
 	
 	public void getInstructions(JTextField field) {
 		instruction = field.getText();
-		System.out.println(instruction);
 	}
 	
 	public void makeQuery(JTextArea area) throws SQLException{

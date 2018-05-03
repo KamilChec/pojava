@@ -6,6 +6,7 @@ import java.awt.HeadlessException;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class OuterClassListener extends JFrame {
 	
@@ -18,6 +19,7 @@ public class OuterClassListener extends JFrame {
 		this.add(colorList, BorderLayout.PAGE_START);
         this.getContentPane().setBackground(Color.red);
         
+       //
         colorList.addItemListener(new ComboBoxItemListener((JPanel)this.getContentPane()));
 	}
 	

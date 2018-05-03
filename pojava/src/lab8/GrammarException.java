@@ -4,8 +4,6 @@ import java.util.List;
 
 public class GrammarException extends Exception {
 	int nMistakes;
-	List<String> mistakes;
-	String list;
 	public GrammarException() {
 
 	}
