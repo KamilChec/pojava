@@ -171,3 +171,72 @@ Database is already closed (to disable automatic closing at VM shutdown, add ";D
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:748)
+2018-05-18 20:10:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Baza danych jest już zamknięta (aby zablokować samoczynne zamykanie podczas zamknięcia VM dodaj ";DB_CLOSE_ON_EXIT=FALSE" do URL bazy danych)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1201)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1175)
+	at org.h2.jdbc.JdbcResultSet.checkClosed(JdbcResultSet.java:3205)
+	at org.h2.jdbc.JdbcResultSet.next(JdbcResultSet.java:128)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:44)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-05-18 23:18:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Baza danych jest już zamknięta (aby zablokować samoczynne zamykanie podczas zamknięcia VM dodaj ";DB_CLOSE_ON_EXIT=FALSE" do URL bazy danych)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1201)
+	at org.h2.jdbc.JdbcStatement.checkClosed(JdbcStatement.java:1175)
+	at org.h2.jdbc.JdbcResultSet.checkClosed(JdbcResultSet.java:3205)
+	at org.h2.jdbc.JdbcResultSetMetaData.checkClosed(JdbcResultSetMetaData.java:437)
+	at org.h2.jdbc.JdbcResultSetMetaData.getColumnCount(JdbcResultSetMetaData.java:49)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:45)
+	at lab10.DatabaseWorker$1.doInBackground(DatabaseWorker.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-05-18 23:19:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+;DROP TABLE waluty;  [42102-197]
+2018-05-18 23:20:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+SELECT * FROM waluty [42102-197]
+2018-05-18 23:20:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+SELECT * FROM waluty [42102-197]
+2018-05-18 23:20:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+SELECT * FROM waluty [42102-197]
+2018-05-18 23:20:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+SELECT * FROM waluty [42102-197]
+2018-05-18 23:20:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+SELECT * FROM waluty [42102-197]
+2018-05-18 23:20:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "WALUTY" nie istnieje
+Table "WALUTY" not found; SQL statement:
+SELECT * FROM waluty [42102-197]
